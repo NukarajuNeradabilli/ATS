@@ -2,7 +2,6 @@ import nltk
 import spacy
 from spacy.matcher import Matcher
 from nltk.tokenize import word_tokenize
-from pyresparser import ResumeParser
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 nltk.download('punkt_tab')
@@ -41,19 +40,6 @@ class resumeExtraction:
         resume_text = resume_text.lower()  # convert to lowercase
         return resume_text
     
-    def __sparser(self, data): 
-        print("Name: " + data['name'])
-        print("Email " + data['email'])
-        print("Mobile Number " + data['mobile_number'])
-        print("Skills " + str(data['skills']))
-        print("College Name " + str(data['college_name']))
-        print("Degree " + str(data['degree']))
-        print("Designation " + str(data['designation']))
-        print("Experience:  " + str(data['experience']))
-        print("Company Names " + str(data['company_names']))
-        print("Number of years Experience: " + str(data['total_experience']))
-        print("Number of Pages resume: " + str(data['no_of_pages']))
-        
        
     def __extract_name(self,resume_text):
         nlp_text = self.nlp(resume_text)
@@ -159,9 +145,7 @@ resumeExtractor = resumeExtraction()
 
 
 
-resume_txt = resumeExtractor.extractorData(pymupdf.open('static/resumes/Nukaraju_Neradabilli_CVD.pdf'),"pdf")
+# resume_txt = resumeExtractor.extractorData(pymupdf.open('static/resumes/Nukaraju_Neradabilli_CVD.pdf'),"pdf")
 # print(resume_txt[5]) 
-data = ResumeParser('static/resumes/Nukaraju_Neradabilli_CVD.pdf').get_extracted_data()
-resumeExtractor._resumeExtraction__sparser(data)
 # pickle.dump(resumeExtractor,open("resumeExtractor.pkl","wb"))
 # print("Resume Extraction is working fine")

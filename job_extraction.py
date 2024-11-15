@@ -42,8 +42,8 @@ class job_extraction:
 job_extractor = job_extraction()
 
 # print(job_extractor.extractorData(fitz.open('static\\Job_Description\\60ae49997be4a46cfe705c98\\Java_Software_Engineer-converted.pdf'),"pdf")) 
-job_desc =job_extractor.extractorData(pymupdf.open('static/Job_Description/Nukaraju_Neradabilli_CVD.pdf'),"pdf")
+# job_desc =job_extractor.extractorData(pymupdf.open('static/Job_Description/Nukaraju_Neradabilli_CVD.pdf'),"pdf")
 # print(job_desc)
-# pickle.dump(job_extractor,open("job_extractor.pkl","wb"))
+# # pickle.dump(job_extractor,open("job_extractor.pkl","wb"))
 # print("Job Extraction is working fine")
     
