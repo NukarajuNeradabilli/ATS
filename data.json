@@ -1,0 +1,127 @@
+[
+    {
+        "id": 1,
+        "Name": "Nukaraju Neradabilli",
+        "Email": "neradabillinukaraju@gmail.com",
+        "Mobile Number": "8639648822",
+        "Skills": [
+            "Numpy",
+            "Analysis",
+            "Javascript",
+            "AI",
+            "Programming",
+            "Research",
+            "Github",
+            "Pandas",
+            "Modeling",
+            "Matplotlib",
+            "C",
+            "Pytorch",
+            "Gensim",
+            "AWS",
+            "Higher education",
+            "Selenium",
+            "Responses",
+            "Cloud",
+            "Isoup",
+            "Nltk",
+            "Machine learning",
+            "Testing",
+            "System",
+            "Python",
+            "Seaborn",
+            "Spacy",
+            "SQL",
+            "Algorithms",
+            "Word",
+            "Technical",
+            "Flask",
+            "Training",
+            "Java",
+            "HTML",
+            "Math",
+            "CSS",
+            "Xgboost",
+            "Tensorflow",
+            "Keras"
+        ],
+        "College Name": null,
+        "Degree": [
+            "Bachelor of Information Technology"
+        ],
+        "Designation": null,
+        "Experience": [
+            "AI Intern | CognitBotz Solutions Hyderabad, Sep - Present. Developed AI/ML solutions using Siamese networks, LSTM, BERT, and GPT models with technologies like OpenAI, WhisperX, Nvidia NeMo, and Pyannote for advanced emotion and voice analysis.",
+            "ML Project Intern | Enligence Technology Labs | VIT Bhimavaram, May - Dec 2023. Developed an automated grading system using speech recognition and NLP, integrating WhisperX Speaker Diarization and top Whisper models. Assessed responses with GPT-3.5-turbo and evaluated performance using MAE, RMSE, and Pearson Correlation."
+        ],
+        "Company Names": [
+            "Source Code"
+        ],
+        "Number of years Experience": 0.0,
+        "Number of Pages resume": 1
+    },
+    {
+        "id": 2,
+        "Name": "Alice Johnson",
+        "Email": "alice.johnson@example.com",
+        "Mobile Number": "1234567890",
+        "Skills": [
+            "Java",
+            "Spring Boot",
+            "SQL",
+            "REST APIs",
+            "Microservices"
+        ],
+        "College Name": "University of Example",
+        "Degree": [
+            "Bachelor of Computer Science"
+        ],
+        "Designation": "Software Engineer",
+        "Experience": [
+            "Software Engineer | Example Corp, Jan 2021 - Present. Developed microservices for e-commerce platform, improved API response times by 20%."
+        ],
+        "Company Names": [
+            "Example Corp"
+        ],
+        "Number of years Experience": 2.0,
+        "Number of Pages resume": 2
+    },
+    {
+        "id": 4,
+        "Name": "Candidate",
+        "Email": "candidate@gmail.com",
+        "Mobile Number": "9909909909",
+        "Skills": [
+            "Numpy"
+        ],
+        "College Name": null,
+        "Degree": [
+            "B.Tech, CSE"
+        ],
+        "Designation": null,
+        "Experience": [
+            "AI Intern"
+        ],
+        "Company Names": [
+            "Walmart"
+        ],
+        "Number of years Experience": 1,
+        "Number of Pages resume": 1
+    },
+    {
+        "id": 5,
+        "Name": "Candidate",
+        "Email": "candidate@gmail.com",
+        "Skills": [
+            "Numpy"
+        ]
+    },
+    {
+        "Name": "Candidate",
+        "Email": "candidate@gmail.com",
+        "Skills": [
+            "Numpy"
+        ],
+        "id": 6
+    }
+]
