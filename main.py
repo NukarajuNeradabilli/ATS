@@ -34,7 +34,7 @@ with open('static/json/data.json', 'r') as json_file:
     
     with open('static/json/data.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
-# print(f"Matching Percentage: {type(str(match_percentage))}%")
+print(f"Matching Percentage: {str(match_percentage)}%")
 
 
 
