@@ -18,6 +18,10 @@ obj_jd_profile_comparison = jd_profile_comparison()
 # In-memory storage for simplicity (use a database for production)
 processed_resumes = {}
 
+@app.route('/working')
+def get_working():
+    return "Working"
+
 
 @app.route('/candidates', methods=['POST'])
 def process_resume():
@@ -120,5 +124,5 @@ def delete_candidate(resume_id):
         return jsonify({"error": "Failed to delete candidate"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.run()
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000)
