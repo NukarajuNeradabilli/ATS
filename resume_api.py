@@ -1,7 +1,8 @@
-import requests   
-from flask import Flask, request, jsonify, url_for
+# import requests
+import base64   
+from flask import Flask, request, send_file, jsonify, url_for
 import json
-import fitz
+# import fitz
 import pymupdf
 from pyresparser import ResumeParser
 from uuid import uuid4 
@@ -16,12 +17,16 @@ job_extractor = job_extraction()
 obj_jd_profile_comparison = jd_profile_comparison()
 
 # In-memory storage for simplicity (use a database for production)
-processed_resumes = {}
+processed_resumes = {} 
 
 @app.route('/working')
 def get_working():
     return "Working"
 
+
+# Configure the uploads folder
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/candidates', methods=['POST'])
 def process_resume():
@@ -34,14 +39,29 @@ def process_resume():
     if not os.path.exists('static/resumes'):
         os.makedirs('static/resumes')
     if not os.path.exists('static/Job_Description'):
-        os.makedirs('static/Job_Description')   
-   
+        os.makedirs('static/Job_Description') 
+    if not os.path.exists('static/uploads'):
+        os.makedirs('static/uploads') 
     
     # Save the uploaded files to temporary locations    
     resume_path = 'static/resumes/temp_resume.pdf'
     jd_path = 'static/Job_Description/temp_job_description.pdf'
+    uploaded_path = os.path.join(app.config['UPLOAD_FOLDER'], resume_file.filename)
     resume_file.save(resume_path)
     jd_file.save(jd_path)
+    resume_file.save(uploaded_path) 
+    
+    processed_pdf_filename = f"processed_{resume_file.filename}"
+    processed_pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], processed_pdf_filename)
+    
+    with open(uploaded_path, "rb") as input_pdf:
+        with open(processed_pdf_path, "wb") as output_pdf:
+            output_pdf.write(input_pdf.read())
+
+    # Generate a URL for the processed file
+    processed_pdf_url = url_for('static', filename=f'uploads/{processed_pdf_filename}', _external=True)
+
+    
     try:
         resume_data = ResumeParser(resume_path).get_extracted_data()
         resume_txt = resumeExtractor.extractorData(pymupdf.open(resume_path), "pdf")
@@ -49,19 +69,19 @@ def process_resume():
         match_percentage = obj_jd_profile_comparison.match(str(job_desc), resume_txt[5])
         resume_data['Matching Percentage'] = str(match_percentage)
         
-        
         resume_id = str(uuid4())
         processed_resumes[resume_id] = resume_data
-        
         with open(f'static/json/{resume_id}.json', 'w') as f:
             json.dump(resume_data, f)
-        return jsonify({"Id": resume_id, "POST Response": resume_data}), 200 
+            
+        
+        return jsonify({"Id": resume_id, "file_url": processed_pdf_url, "POST Response": resume_data}), 200 
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        os.remove(resume_path)
         os.remove(jd_path)
+        os.remove(resume_path)
     
         
 @app.route('/candidates/all', methods=['GET'])
