@@ -23,11 +23,6 @@ processed_resumes = {}
 def get_working():
     return "Working"
 
-
-# Configure the uploads folder
-UPLOAD_FOLDER = 'static/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 @app.route('/candidates', methods=['POST'])
 def process_resume():
     if 'resume' not in request.files or 'job_description' not in request.files:
@@ -42,19 +37,21 @@ def process_resume():
         os.makedirs('static/Job_Description') 
     if not os.path.exists('static/uploads'):
         os.makedirs('static/uploads') 
+        
+    # Configure the uploads folder
+    UPLOAD_FOLDER = 'static/uploads'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     
     # Save the uploaded files to temporary locations    
     resume_path = 'static/resumes/temp_resume.pdf'
     jd_path = 'static/Job_Description/temp_job_description.pdf'
-    uploaded_path = os.path.join(app.config['UPLOAD_FOLDER'], resume_file.filename)
     resume_file.save(resume_path)
-    jd_file.save(jd_path)
-    resume_file.save(uploaded_path) 
+    jd_file.save(jd_path) 
     
     processed_pdf_filename = f"processed_{resume_file.filename}"
     processed_pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], processed_pdf_filename)
     
-    with open(uploaded_path, "rb") as input_pdf:
+    with open(resume_path, "rb") as input_pdf:
         with open(processed_pdf_path, "wb") as output_pdf:
             output_pdf.write(input_pdf.read())
 
@@ -68,14 +65,18 @@ def process_resume():
         job_desc = job_extractor.extractorData(pymupdf.open(jd_path), "pdf")
         match_percentage = obj_jd_profile_comparison.match(str(job_desc), resume_txt[5])
         resume_data['Matching Percentage'] = str(match_percentage)
+        resume_data['file_url'] = processed_pdf_url
         
         resume_id = str(uuid4())
         processed_resumes[resume_id] = resume_data
         with open(f'static/json/{resume_id}.json', 'w') as f:
             json.dump(resume_data, f)
             
+        # if os.path.exists(processed_pdf_path):
+        #     os.remove(processed_pdf_path)
+            
         
-        return jsonify({"Id": resume_id, "file_url": processed_pdf_url, "POST Response": resume_data}), 200 
+        return jsonify({"Id": resume_id,  "POST Response": resume_data}), 200 
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -86,20 +87,39 @@ def process_resume():
         
 @app.route('/candidates/all', methods=['GET'])
 def get_candidates(): 
-    resumes = []   
+    resumes = []  
+    seen_resumes = set() 
     try: 
         resume_dir = 'static/json'
         for filename in os.listdir(resume_dir):
             if filename.endswith('.json'):
                 with open(os.path.join(resume_dir, filename), 'r') as f:
                     data = json.load(f)
-                    resumes.append(data)
+                    # resume_str = json.dumps(data, sort_keys= True)
+                    # if resume_str not in seen_resumes:
+                    #     seen_resumes.add(resume_str)
+                    #     resumes.append(data)
+                    
+                    name = data.get('name', '').strip()
+                    email = data.get('email', '').strip()
+                    mobile = data.get('mobile_number', '').strip()
+                    unique_key = (name, email, mobile)
+                    
+                    if unique_key not in seen_resumes:
+                        seen_resumes.add(unique_key)
+                        resumes.append(data)
+
+        key = request.args.get('key') 
+        if key:
+            filtered_data = [{key: candidate.get(key)} for candidate in resumes]
+            return jsonify(filtered_data), 200
+        
         return jsonify(resumes), 200 
     except FileNotFoundError:
         return jsonify({"error": "Candidates not found"}), 404
 
 
-@app.route('/candidates/<string:resume_id>', methods=['GET'])
+@app.route('/candidates/all/<string:resume_id>', methods=['GET'])
 def get_candidate(resume_id):
     try: 
         with open(f'static/json/{resume_id}.json', 'r') as f: 
@@ -109,7 +129,7 @@ def get_candidate(resume_id):
         return jsonify({"error": "Candidate not found"}), 404
 
 
-@app.route('/candidates/<string:resume_id>', methods=['PUT'])
+@app.route('/candidates/all/<string:resume_id>', methods=['PUT'])
 def update_candidate(resume_id):
     try: 
         resume_path = f'static/json/{resume_id}.json'
@@ -132,7 +152,7 @@ def update_candidate(resume_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/candidates/<string:resume_id>', methods=['DELETE'])
+@app.route('/candidates/all/<string:resume_id>', methods=['DELETE'])
 def delete_candidate(resume_id):
     try: 
         resume_path = f'static/json/{resume_id}.json'
