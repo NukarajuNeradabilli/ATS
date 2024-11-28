@@ -72,8 +72,8 @@ def process_resume():
         with open(f'static/json/{resume_id}.json', 'w') as f:
             json.dump(resume_data, f)
             
-        # if os.path.exists(processed_pdf_path):
-        #     os.remove(processed_pdf_path)
+        if os.path.exists(processed_pdf_path):
+            os.remove(processed_pdf_path)
             
         
         return jsonify({"Id": resume_id,  "POST Response": resume_data}), 200 
