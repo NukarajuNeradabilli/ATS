@@ -1,0 +1,118 @@
+{
+    "Results": [
+        {
+            "Id": "7033baaa-75a7-41cc-9386-e9e1cb164784",
+            "Resume Data": {
+                "name": "Aishwarya Shrinivas",
+                "email": "aishusk2001@gmail.com",
+                "mobile_number": "8208475724",
+                "skills": [
+                    "Email",
+                    "Php",
+                    "Oracle",
+                    "C",
+                    "Technical",
+                    "Servers",
+                    "Mobile",
+                    "Sql",
+                    "Css",
+                    "C++",
+                    "Cloud",
+                    "Database",
+                    "Engineering",
+                    "Python",
+                    "Programming",
+                    "Html",
+                    "English",
+                    "Certification",
+                    "Java",
+                    "Design",
+                    "Mysql"
+                ],
+                "college_name": null,
+                "degree": null,
+                "designation": null,
+                "experience": null,
+                "company_names": null,
+                "no_of_pages": 2,
+                "total_experience": 0,
+                "Matching Percentage": "68.1199"
+            }
+        },
+        {
+            "Id": "11b831b0-1c6a-4d16-80e5-c245c09f88f7",
+            "Resume Data": {
+                "name": "Nukaraju Neradabilli",
+                "email": "neradabillinukaraju@gmail.com",
+                "mobile_number": "8639648822",
+                "skills": [
+                    "Word",
+                    "Xgboost",
+                    "Github",
+                    "Keras",
+                    "Gensim",
+                    "Machine learning",
+                    "Pytorch",
+                    "C",
+                    "Research",
+                    "Technical",
+                    "Information technology",
+                    "Analysis",
+                    "Sql",
+                    "Css",
+                    "Higher education",
+                    "System",
+                    "Tensorflow",
+                    "Cloud",
+                    "Testing",
+                    "Training",
+                    "Python",
+                    "Programming",
+                    "Html",
+                    "Modeling",
+                    "Pandas",
+                    "Nltk",
+                    "Pydub",
+                    "Audio",
+                    "Selenium",
+                    "Javascript",
+                    "Flask",
+                    "Spacy",
+                    "Java",
+                    "Responses",
+                    "Matplotlib",
+                    "Ai",
+                    "Seaborn",
+                    "Aws",
+                    "Math",
+                    "Algorithms",
+                    "Numpy"
+                ],
+                "college_name": null,
+                "degree": [
+                    "Bachelor of Information Technology"
+                ],
+                "designation": null,
+                "experience": [
+                    "Research Intern, Speech Processing Lab | IIIT Hyderabad",
+                    "\u2022 Currently working with ASR, TTS systems (VITS), and Python libraries for audio processing (pydub, WhisperX).",
+                    "Intern Software Trainee, Prodify Software Solutions | Visakhapatnam",
+                    "Jul 2024 - Present",
+                    "Feb - May 2024",
+                    "\u2022 Conducted data scraping for stocks and mutual funds from diverse sources, categorizing data by sectors, and utilized data analysis to pinpoint",
+                    "top-performing stocks and mutual funds based on specific criteria.",
+                    "ML Project Intern Enligence Technology Labs | VIT Bhimavaram",
+                    "May-Dec 2023",
+                    "\u2022 Developed an automated grading system using speech recognition and NLP, integrating WhisperX Speaker Diarization and top Whisper",
+                    "models. Assessed responses with GPT-3.5-turbo and evaluated performance using MAE, RMSE, and Pearson Correlation"
+                ],
+                "company_names": [
+                    "Source Code"
+                ],
+                "no_of_pages": 1,
+                "total_experience": 0.42,
+                "Matching Percentage": "100.0"
+            }
+        }
+    ]
+}
