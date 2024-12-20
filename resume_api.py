@@ -5,7 +5,6 @@ from jd_profile_comparison import jd_profile_comparison
 from pyresparser import ResumeParser
 from uuid import uuid4
 import pymupdf
-import tempfile
 import os
 import threading
 
@@ -20,7 +19,7 @@ def ensure_directory_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-processed_resumes = {}  # Shared storage for processed resumes
+processed_resumes = []  # List to track resumes added in POST requests
 
 @app.route('/')
 def get_working():
@@ -64,7 +63,7 @@ def process_resume():
                         resume_id = str(uuid4())
                         
                         with lock:  # Lock to ensure thread-safe access
-                            processed_resumes[resume_id] = resume_data
+                            processed_resumes.append({"Id": resume_id, "Resume Data": resume_data})
                         
                         results.append({"Id": resume_id, "Resume Data": resume_data})
                     except Exception as resume_error:
@@ -82,24 +81,13 @@ def process_resume():
         
         elif request.method == 'GET':
             with lock:  # Lock to ensure thread-safe access
-                seen = set()
-                unique_resumes = {}
-                for resume_id, resume in list(processed_resumes.items()):
-                    name = str(resume.get('name', '')).strip() if resume.get('name') else ''
-                    email = str(resume.get('email', '')).strip() if resume.get('email') else ''
-                    mobile_number = str(resume.get('mobile_number', '')).strip() if resume.get('mobile_number') else ''
-                    
-                    unique_key = (name, email, mobile_number)
-                    
-                    if not any(unique_key):
-                        continue
-                    
-                    if unique_key not in seen:
-                        seen.add(unique_key)
-                        unique_resumes[resume_id] = resume
-                        del processed_resumes[resume_id]  # Remove processed resume
-            
-            return jsonify({"Unique Resumes": unique_resumes}), 200
+                if not processed_resumes:
+                    return jsonify({"message": "No new resumes to process"}), 200
+                
+                # Return and delete all processed resumes
+                unique_resumes = processed_resumes[:]
+                processed_resumes.clear()  # Clear after serving
+                return jsonify({"GET Response": unique_resumes}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
