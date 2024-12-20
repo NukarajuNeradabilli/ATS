@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 __pycache__/
 *.pyc
 venv/
 nohup.out
-=======
-venv/ 
-*.pyc
-__pycache__/
-nohup.out
->>>>>>> 6b5871582307836ed3027370dded47a712c125c6
+
